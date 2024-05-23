@@ -10,11 +10,11 @@
 <body>
     
     <div class="button_container">
-        <button class="add_new_book_btn">Add A new book!</button>
+        <button class="show_dialog_btn">Add A new book!</button>
     </div>
 
-    <dialog>
-        <button>Close</button>
+    <dialog class="dialog">
+        <button class="close_dialog_btn">Close</button>
         <form action="/submit_form" class="form_container"></form>
 
         <label for="book_title">Book Title:</label>
@@ -28,6 +28,9 @@
 
         <label for="have_read">Number Of Pages</label>
         <input type="checkbox" id="have_read" name="have_read" required>
+
+        <button type="submit" class="submit_btn">Submit</button>
+
         
     </dialog>
 

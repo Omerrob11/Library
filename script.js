@@ -32,7 +32,7 @@ addBookToLibrary(book3);
 // Dom elemetns related function
 myLibrary.forEach((book) => {
     const bookContainer = createBookContainer();
-    const bookItems = createBookItems(book);
+    const bookItems = createBookDomElement(book);
     appendBookItems(bookContainer,bookItems);
     appendBookContainer(bookContainer);
 });
@@ -43,7 +43,7 @@ function createBookContainer () {
     return document.createElement("div");
 }
 
-function createBookItems(book) {
+function createBookDomElement(book) {
     const title = document.createElement("p");
 
     const author = document.createElement("p");
@@ -80,13 +80,63 @@ function updateText(title,author,numOfPages,finished,book) {
     finished.textContent = "Did you read it " + book.finished
 }
 
+// form elements references
+const titleInput = document.getElementById("book_title");
+const authorInput = document.getElementById("book_author");
+const numOfPagesInput = document.getElementById("num_pages");
+const haveReadInput = document.getElementById("have_read");
 
 
 // Modal
 
+const dialog = document.querySelector(".dialog");
+const formContainer = document.querySelector(".form_container");
+const showDialogBtn = document.querySelector(".show_dialog_btn");
+const closeDialogBtn = document.querySelector(".close_dialog_btn");
+const submitBtn = document.querySelector(".submit_btn")
+
+
+showDialogBtn.addEventListener("click", (e) => {
+    dialog.showModal();
+
+});
+
+closeDialogBtn.addEventListener("click", (e) => {
+    dialog.close();
+
+});
+
+submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    createBookObject();
+    console.log(e)
+});
+
+function createBookObject() {
+    debugger
+    const book = new Book(titleInput.value, authorInput.value,numOfPagesInput.value,haveReadInput.value);
+    addBookToLibrary(book);
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// create get functions of the current values in the inputs...
 /*
 
 function createBookElement(book) {
