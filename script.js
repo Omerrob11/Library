@@ -14,9 +14,9 @@ function Book(title,author,numOfPages,finished) {
 
 // Global Variables
 const myLibrary = []; 
-const book1 = new Book("lord of the rings", "omer",453,"yes");
-const book2 = new Book("NBA", "roey",342,"yes");
-const book3 = new Book("Fiba", "tomer",234,"no");
+// const book1 = new Book("lord of the rings", "omer",453,"yes");
+// const book2 = new Book("NBA", "roey",342,"yes");
+// const book3 = new Book("Fiba", "tomer",234,"no");
 
 
 // data strctures functions
@@ -24,9 +24,9 @@ function addBookToLibrary(bookObj) {
     myLibrary.push(bookObj)
 }
 
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
+// addBookToLibrary(book1);
+// addBookToLibrary(book2);
+// addBookToLibrary(book3);
 
 
 // Dom elemetns related function
@@ -108,21 +108,35 @@ closeDialogBtn.addEventListener("click", (e) => {
 
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    createBookObject();
-    console.log(e)
+    const bookObj = createBookObject();
+    addBookToLibrary(bookObj);
+    reset();
+    dialog.close();
+    appendBookObj(bookObj);
 });
 
 function createBookObject() {
-    debugger
-    const book = new Book(titleInput.value, authorInput.value,numOfPagesInput.value,haveReadInput.value);
-    addBookToLibrary(book);
+    const book = new Book(titleInput.value, authorInput.value,numOfPagesInput.value,haveReadInput.checked);
+    return book;
+}
+
+function appendBookObj(bookObj) {
+    const bookContainer = createBookContainer();
+    const bookItems = createBookDomElement(bookObj);
+    appendBookItems(bookContainer,bookItems);
+    appendBookContainer(bookContainer);
 }
 
 
 
+// function reset 
+function reset() {
+    titleInput.value = "";
+    authorInput.value = "";
+    numOfPagesInput.value = "";
+    haveReadInput.checked = false;
 
-
-
+}
 
 
 
