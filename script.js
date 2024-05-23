@@ -1,3 +1,5 @@
+// Constructor 
+
 function Book(title,author,numOfPages,finished) {
     this.title = title;
     this.author = author;
@@ -9,37 +11,34 @@ function Book(title,author,numOfPages,finished) {
     }
 }
 
+
+// Global Variables
 const myLibrary = []; 
-
-function addBookToLibrary(bookObj) {
-    myLibrary.push(bookObj)
-}
-
 const book1 = new Book("lord of the rings", "omer",453,"yes");
 const book2 = new Book("NBA", "roey",342,"yes");
 const book3 = new Book("Fiba", "tomer",234,"no");
+
+
+// data strctures functions
+function addBookToLibrary(bookObj) {
+    myLibrary.push(bookObj)
+}
 
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
 
 
-const testFunction = (item) => {
-    console.log(item)
-}
-
+// Dom elemetns related function
 myLibrary.forEach((book) => {
-    // const bookContainer = createBookElement(book);
-    // const bookCard = document.querySelector(".book_cards");
-    // bookCard.appendChild(bookContainer)
-    // console.log(bookContainer)
-
     const bookContainer = createBookContainer();
     const bookItems = createBookItems(book);
     appendBookItems(bookContainer,bookItems);
     appendBookContainer(bookContainer);
 });
 
+
+// Create HTML ELEMENTS functions
 function createBookContainer () {
     return document.createElement("div");
 }
@@ -57,6 +56,9 @@ function createBookItems(book) {
     return [title,author,numOfPages,finished];
 }
 
+
+// append html elements
+
 function appendBookItems(bookContainer,bookItems) {
     bookItems.forEach((item) => {
         bookContainer.appendChild(item);
@@ -68,6 +70,9 @@ function appendBookContainer(bookContainer) {
     bookCard.appendChild(bookContainer)
 }
 
+
+// change html elements
+
 function updateText(title,author,numOfPages,finished,book) {
     title.textContent = "Book Title: " + book.title;
     author.textContent = "Book Author: " + book.author;
@@ -77,6 +82,12 @@ function updateText(title,author,numOfPages,finished,book) {
 
 
 
+// Modal
+
+
+
+
+/*
 
 function createBookElement(book) {
     const bookContainer = document.createElement("div");
@@ -100,6 +111,4 @@ function appendBookElements(bookContainer,title,author,numOfPages,finished) {
 }
 
 
-
-
-
+*/
