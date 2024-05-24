@@ -1,10 +1,11 @@
 // Constructor 
-
+counter = 0;
 function Book(title,author,numOfPages,finished) {
     this.title = title;
     this.author = author;
     this.numOfPages = numOfPages;
     this.finished = finished;
+    this.counter = counter;
 
     this.info = () => {
        return `${this.title} by ${this.author}, ${this.numOfPages}, ${this.finished}`;
@@ -14,20 +15,11 @@ function Book(title,author,numOfPages,finished) {
 
 // Global Variables
 const myLibrary = []; 
-// const book1 = new Book("lord of the rings", "omer",453,"yes");
-// const book2 = new Book("NBA", "roey",342,"yes");
-// const book3 = new Book("Fiba", "tomer",234,"no");
-
 
 // data strctures functions
 function addBookToLibrary(bookObj) {
     myLibrary.push(bookObj)
 }
-
-// addBookToLibrary(book1);
-// addBookToLibrary(book2);
-// addBookToLibrary(book3);
-
 
 // Dom elemetns related function
 myLibrary.forEach((book) => {
@@ -40,7 +32,17 @@ myLibrary.forEach((book) => {
 
 // Create HTML ELEMENTS functions
 function createBookContainer () {
-    return document.createElement("div");
+     const bookContainer = document.createElement("div");
+     bookContainer.setAttribute("counter", counter)
+     // adding classslist of index it's a problem, because if we remove an element
+     // the index will shift;
+
+    // what i think of is to add another identifier for the object
+    // so we can have the same unique identifer to the object and the container with class;
+    // than we serach in the object lists the correct property, so when you press remove.
+    // you look on the container - the father unique id.
+    // than, you search in the array, you use one of the methods, to find the correct id in the list of objects.
+     return bookContainer;
 }
 
 function createBookDomElement(book) {
@@ -52,8 +54,12 @@ function createBookDomElement(book) {
 
     const finished = document.createElement("p");
 
-    updateText(title,author,numOfPages,finished,book)
-    return [title,author,numOfPages,finished];
+    const removeBookFromLibrary = document.createElement("button");
+    
+    removeBookFromLibrary.addEventListener("click",handleRemoveBook);
+
+    updateText(title,author,numOfPages,finished,removeBookFromLibrary,book)
+    return [title,author,numOfPages,finished,removeBookFromLibrary];
 }
 
 
@@ -73,11 +79,12 @@ function appendBookContainer(bookContainer) {
 
 // change html elements
 
-function updateText(title,author,numOfPages,finished,book) {
+function updateText(title,author,numOfPages,finished,removeBtn,book) {
     title.textContent = "Book Title: " + book.title;
     author.textContent = "Book Author: " + book.author;
     numOfPages.textContent = "Numfer Of Pages: " + book.numOfPages;
-    finished.textContent = "Did you read it " + book.finished
+    finished.textContent = "Did you read it " + book.finished;
+    removeBtn.textContent = "remove";
 }
 
 // form elements references
@@ -113,6 +120,7 @@ submitBtn.addEventListener("click", (e) => {
     reset();
     dialog.close();
     appendBookObj(bookObj);
+    counter++;
 });
 
 function createBookObject() {
@@ -138,6 +146,16 @@ function reset() {
 
 }
 
+
+function handleRemoveBook(e) {
+    let containerParent = document.querySelector(".book_cards");
+    let bookContainer = e.target.parentElement;
+    let contaierCounter = e.target.parentElement.getAttribute("counter");
+    let indexOfContainer = myLibrary.findIndex(obj => obj.counter === +contaierCounter );
+    myLibrary.splice(indexOfContainer,1);
+    containerParent.removeChild(bookContainer);
+    // contaierCounter.remove();
+}
 
 
 
