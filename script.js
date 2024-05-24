@@ -33,15 +33,7 @@ myLibrary.forEach((book) => {
 // Create HTML ELEMENTS functions
 function createBookContainer () {
      const bookContainer = document.createElement("div");
-     bookContainer.setAttribute("counter", counter)
-     // adding classslist of index it's a problem, because if we remove an element
-     // the index will shift;
-
-    // what i think of is to add another identifier for the object
-    // so we can have the same unique identifer to the object and the container with class;
-    // than we serach in the object lists the correct property, so when you press remove.
-    // you look on the container - the father unique id.
-    // than, you search in the array, you use one of the methods, to find the correct id in the list of objects.
+     bookContainer.setAttribute("counter", counter);
      return bookContainer;
 }
 
@@ -53,6 +45,8 @@ function createBookDomElement(book) {
     const numOfPages = document.createElement("p");
 
     const finished = document.createElement("p");
+
+    const toggleRead = document.createElement("button")
 
     const removeBookFromLibrary = document.createElement("button");
     
@@ -83,7 +77,7 @@ function updateText(title,author,numOfPages,finished,removeBtn,book) {
     title.textContent = "Book Title: " + book.title;
     author.textContent = "Book Author: " + book.author;
     numOfPages.textContent = "Numfer Of Pages: " + book.numOfPages;
-    finished.textContent = "Did you read it " + book.finished;
+    finished.textContent = book.finished ? "Did you read it: Yes" : "Did you read it: No"
     removeBtn.textContent = "remove";
 }
 
@@ -156,41 +150,3 @@ function handleRemoveBook(e) {
     containerParent.removeChild(bookContainer);
     // contaierCounter.remove();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// create get functions of the current values in the inputs...
-/*
-
-function createBookElement(book) {
-    const bookContainer = document.createElement("div");
-    const title = document.createElement("p");
-    const author = document.createElement("p");
-    const numOfPages = document.createElement("p");
-    const finished = document.createElement("p");
-
-    appendBookElements( bookContainer,title,author,numOfPages,finished);
-    updateText(bookContainer,title,author,numOfPages,finished,book);
-    //return bookContainer;
-
-    return [bookContainer,title,author,numOfPages,finished]
-}
-
-function appendBookElements(bookContainer,title,author,numOfPages,finished) {
-    bookContainer.appendChild(title);
-    bookContainer.appendChild(author);
-    bookContainer.appendChild(numOfPages);
-    bookContainer.appendChild(finished);
-}
-
-
-*/
