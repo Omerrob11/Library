@@ -15,7 +15,9 @@
 
     <dialog class="dialog">
         <button class="close_dialog_btn">Close</button>
-        <form action="/submit_form" class="form_container"></form>
+        <div class="error_message hidden" id="book_title_error"></div>
+
+        <form action="/submit_form" class="form_container">
 
         <label for="book_title">Book Title:</label>
         <input type="text" id="book_title" name="book_title" required>
@@ -30,6 +32,7 @@
         <input type="checkbox" id="have_read" name="have_read" required>
 
         <button type="submit" class="submit_btn">Submit</button>
+        </form>
 
         
     </dialog>

@@ -46,14 +46,16 @@ function createBookDomElement(book) {
 
     const finished = document.createElement("p");
 
-    const toggleRead = document.createElement("button")
+    const toggleRead = document.createElement("button");
+
+    toggleRead.addEventListener("click",handleToggleRead);
 
     const removeBookFromLibrary = document.createElement("button");
     
     removeBookFromLibrary.addEventListener("click",handleRemoveBook);
 
-    updateText(title,author,numOfPages,finished,removeBookFromLibrary,book)
-    return [title,author,numOfPages,finished,removeBookFromLibrary];
+    updateText(title,author,numOfPages,finished,removeBookFromLibrary,toggleRead,book)
+    return [title,author,numOfPages,finished,removeBookFromLibrary,toggleRead];
 }
 
 
@@ -67,18 +69,19 @@ function appendBookItems(bookContainer,bookItems) {
 
 function appendBookContainer(bookContainer) {
     const bookCard = document.querySelector(".book_cards");
-    bookCard.appendChild(bookContainer)
+    bookCard.appendChild(bookContainer);
 }
 
 
 // change html elements
 
-function updateText(title,author,numOfPages,finished,removeBtn,book) {
+function updateText(title,author,numOfPages,finished,removeBtn,toggleReadBtn,book) {
     title.textContent = "Book Title: " + book.title;
     author.textContent = "Book Author: " + book.author;
     numOfPages.textContent = "Numfer Of Pages: " + book.numOfPages;
     finished.textContent = book.finished ? "Did you read it: Yes" : "Did you read it: No"
     removeBtn.textContent = "remove";
+    toggleReadBtn.textContent = book.finished ? "Read" : "Not read";
 }
 
 // form elements references
@@ -86,6 +89,7 @@ const titleInput = document.getElementById("book_title");
 const authorInput = document.getElementById("book_author");
 const numOfPagesInput = document.getElementById("num_pages");
 const haveReadInput = document.getElementById("have_read");
+const errorMessage = document.querySelector(".error_message");
 
 
 // Modal
@@ -103,15 +107,22 @@ showDialogBtn.addEventListener("click", (e) => {
 });
 
 closeDialogBtn.addEventListener("click", (e) => {
+    if (!errorMessage.classList.contains("hidden")) {
+        errorMessage.classList.add("hidden");
+    }
     dialog.close();
 
 });
 
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    if (!formIsValid()) {
+        return;
+    }
     const bookObj = createBookObject();
     addBookToLibrary(bookObj);
     reset();
+   
     dialog.close();
     appendBookObj(bookObj);
     counter++;
@@ -141,6 +152,8 @@ function reset() {
 }
 
 
+// event listener functions
+
 function handleRemoveBook(e) {
     let containerParent = document.querySelector(".book_cards");
     let bookContainer = e.target.parentElement;
@@ -150,3 +163,40 @@ function handleRemoveBook(e) {
     containerParent.removeChild(bookContainer);
     // contaierCounter.remove();
 }
+
+function handleToggleRead (e) {
+    let contaierCounter = e.target.parentElement.getAttribute("counter")
+    let indexOfContainer = myLibrary.findIndex(obj => obj.counter === +contaierCounter );
+    let book = myLibrary[indexOfContainer];
+    toggleReadBtn.textContent = book.finished ? "Read" : "Not read";
+    // check this, if it is stored as true or false
+    book.finished = !book.finished;
+}
+
+
+function formIsValid() {
+    let errorMessageText = "Please Fill:";
+    if (titleInput.value === "" || authorInput.value === "" || numOfPagesInput.value === "") {
+        if (titleInput.value === "") {
+            errorMessageText = errorMessageText + " Book Title";
+        }
+        if (authorInput.value === "") {
+            errorMessageText = errorMessageText + " ,Author Name";
+        }
+
+
+        if (numOfPagesInput.value === "") {
+            errorMessageText = errorMessageText + " ,Number of pages";
+        }
+        errorMessage.classList.remove("hidden");
+        errorMessage.textContent = errorMessageText;
+        return false;
+    }
+    errorMessage.classList.add("hidden");
+    return true;
+}
+// what else:
+// slight form validation - just check if everythins is filled
+// check if all the logic is correct
+// apply minimal css
+// check for others code
