@@ -81,7 +81,7 @@ function updateText(title,author,numOfPages,finished,removeBtn,toggleReadBtn,boo
     numOfPages.textContent = "Numfer Of Pages: " + book.numOfPages;
     finished.textContent = book.finished ? "Did you read it: Yes" : "Did you read it: No"
     removeBtn.textContent = "remove";
-    toggleReadBtn.textContent = book.finished ? "Read" : "Not read";
+    toggleReadBtn.textContent = book.finished ? "Not Read" : "Yes Read";
 }
 
 // form elements references
@@ -168,9 +168,12 @@ function handleToggleRead (e) {
     let contaierCounter = e.target.parentElement.getAttribute("counter")
     let indexOfContainer = myLibrary.findIndex(obj => obj.counter === +contaierCounter );
     let book = myLibrary[indexOfContainer];
-    toggleReadBtn.textContent = book.finished ? "Read" : "Not read";
-    // check this, if it is stored as true or false
     book.finished = !book.finished;
+    e.target.textContent = book.finished ? "Not Read" : "Yes Read";
+
+    let haveYouReadItPar = e.target.parentElement.children[3];
+    haveYouReadItPar.textContent = book.finished? "Have you read it: Yes!" : "Have you read it: No!"
+    // check this, if it is stored as true or false
 }
 
 
@@ -196,7 +199,7 @@ function formIsValid() {
     return true;
 }
 // what else:
-// slight form validation - just check if everythins is filled
+
 // check if all the logic is correct
 // apply minimal css
 // check for others code
