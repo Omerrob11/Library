@@ -200,6 +200,5 @@ function formIsValid() {
 }
 // what else:
 
-// check if all the logic is correct
 // apply minimal css
 // check for others code
