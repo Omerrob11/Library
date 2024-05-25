@@ -13,6 +13,9 @@ function Book(title,author,numOfPages,finished) {
 }
 
 
+
+
+
 // Global Variables
 const myLibrary = []; 
 
@@ -33,6 +36,7 @@ myLibrary.forEach((book) => {
 // Create HTML ELEMENTS functions
 function createBookContainer () {
      const bookContainer = document.createElement("div");
+     bookContainer.classList.add("book_container")
      bookContainer.setAttribute("counter", counter);
      return bookContainer;
 }
@@ -53,6 +57,19 @@ function createBookDomElement(book) {
     const removeBookFromLibrary = document.createElement("button");
     
     removeBookFromLibrary.addEventListener("click",handleRemoveBook);
+
+    title.classList.add("book_par");
+    author.classList.add("book_par");    
+    numOfPages.classList.add("book_par");    
+    finished.classList.add("book_par");
+    debugger
+    if (book.finished) {
+        toggleRead.classList.add("book_btn","toggle_btn_yes"); 
+    } else {
+        toggleRead.classList.add("book_btn","toggle_btn_no"); 
+    }
+    removeBookFromLibrary.classList.add("book_btn","remove_btn");    
+
 
     updateText(title,author,numOfPages,finished,removeBookFromLibrary,toggleRead,book)
     return [title,author,numOfPages,finished,removeBookFromLibrary,toggleRead];
@@ -122,13 +139,13 @@ submitBtn.addEventListener("click", (e) => {
     const bookObj = createBookObject();
     addBookToLibrary(bookObj);
     reset();
-   
     dialog.close();
     appendBookObj(bookObj);
     counter++;
 });
 
 function createBookObject() {
+    debugger
     const book = new Book(titleInput.value, authorInput.value,numOfPagesInput.value,haveReadInput.checked);
     return book;
 }
@@ -165,11 +182,20 @@ function handleRemoveBook(e) {
 }
 
 function handleToggleRead (e) {
-    let contaierCounter = e.target.parentElement.getAttribute("counter")
+    let contaierCounter = e.target.parentElement.getAttribute("counter");
     let indexOfContainer = myLibrary.findIndex(obj => obj.counter === +contaierCounter );
     let book = myLibrary[indexOfContainer];
     book.finished = !book.finished;
     e.target.textContent = book.finished ? "Not Read" : "Yes Read";
+    debugger
+    if (book.finished) {
+        e.target.classList.remove("toggle_btn_no");
+        e.target.classList.add("toggle_btn_yes");
+
+    } else {
+        e.target.classList.remove("toggle_btn_yes");
+        e.target.classList.add("toggle_btn_no")
+    }
 
     let haveYouReadItPar = e.target.parentElement.children[3];
     haveYouReadItPar.textContent = book.finished? "Have you read it: Yes!" : "Have you read it: No!"
@@ -197,6 +223,10 @@ function formIsValid() {
     }
     errorMessage.classList.add("hidden");
     return true;
+}
+
+function determineInitialToggleBackground (book,toggleBtn) {
+
 }
 // what else:
 
