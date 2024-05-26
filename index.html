@@ -16,24 +16,26 @@
     </div>
 
     <dialog class="dialog">
-        <button class="close_dialog_btn">Close</button>
-        <div class="error_message hidden" id="book_title_error"></div>
+        <div class="container_dialog">
+            <button class="close_dialog_btn">Close</button>
+            <div class="error_message hidden" id="book_title_error"></div>
 
-        <form action="/submit_form" class="form_container">
+            <form action="/submit_form" class="form_container">
 
-        <label for="book_title">Book Title:</label>
-        <input type="text" id="book_title" name="book_title" required>
+            <label for="book_title">Book Title:</label>
+            <input type="text" id="book_title" name="book_title" required>
 
-        <label for="author">Book Author:</label>
-        <input type="text" id="book_author" name="book_author" required>
+            <label for="author">Book Author:</label>
+            <input type="text" id="book_author" name="book_author" required>
 
-        <label for="num_pages">Number Of Pages</label>
-        <input type="number" id="num_pages" name="num_pages" required>
+            <label for="num_pages">Number Of Pages</label>
+            <input type="number" id="num_pages" name="num_pages" required>
 
-        <label for="have_read">Have you read the book?</label>
-        <input type="checkbox" id="have_read" name="have_read" required>
+            <label for="have_read">Have you read the book?</label>
+            <input type="checkbox" id="have_read" name="have_read" required>
 
-        <button type="submit" class="submit_btn">Submit</button>
+            <button type="submit" class="submit_btn">Submit</button>
+        </div>
         </form>
 
         

@@ -143,13 +143,18 @@ html {
 /* Form container */
 .dialog {
     border: 2px solid red;
+    /* width: 360px; */
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.container_dialog {
     width: 360px;
     display: flex;
     flex-direction: column;
-}
 
+}
 .close_dialog_btn {
-    justify-content: start;
-    align-items: start;
+    
     align-self: flex-start;
 }
