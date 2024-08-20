@@ -1,6 +1,10 @@
 // Constructor 
 counter = 0;
+
 function Book(title,author,numOfPages,finished) {
+    if (!new.target) {
+        throw Error ('must use the new operator to call the function')
+    }
     this.title = title;
     this.author = author;
     this.numOfPages = numOfPages;
@@ -228,7 +232,6 @@ function formIsValid() {
 function determineInitialToggleBackground (book,toggleBtn) {
 
 }
-// what else:
 
-// apply minimal css
-// check for others code
+
+
